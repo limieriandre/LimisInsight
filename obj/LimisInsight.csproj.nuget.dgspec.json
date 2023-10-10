@@ -67,6 +67,10 @@
             "bootstrap": {
               "target": "Package",
               "version": "[5.3.2, )"
+            },
+            "datatables.net-dt": {
+              "target": "Package",
+              "version": "[1.13.6, )"
             }
           },
           "imports": [

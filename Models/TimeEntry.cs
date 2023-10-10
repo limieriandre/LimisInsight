@@ -1,12 +1,24 @@
-﻿namespace LimisInsight.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+[Table("organization_53257_time_entries_v2")]
+public class TimeEntry
 {
-    public class TimeEntry
-    {
-        public int Id { get; set; }
-        public DateTime DateAt { get; set; }
-        public float Duration { get; set; }
-        public float DurationHour { get; set; }
-        public int MembersUserId { get; set; }
-        public string MembersUserName { get; set; }
-    }
+    [Column("id")]
+    public int Id { get; set; }
+
+    [Column("date_at")]
+    public DateTime DateAt { get; set; }
+
+    [Column("duration")]
+    public int Duration { get; set; }
+
+    [Column("duration_hour")]
+    public decimal DurationHour { get; set; }
+
+    [Column("members_user_id")]
+    public int UserId { get; set; }
+
+    [Column("members_user_name")]
+    public string UserName { get; set; }
 }
+

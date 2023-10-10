@@ -13,13 +13,24 @@
           "Microsoft.EntityFrameworkCore.Design": "7.0.11",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.11",
           "Pomelo.EntityFrameworkCore.MySql": "7.0.0",
-          "bootstrap": "5.3.2"
+          "bootstrap": "5.3.2",
+          "datatables.net-dt": "1.13.6"
         },
         "runtime": {
           "LimisInsight.dll": {}
         }
       },
       "bootstrap/5.3.2": {},
+      "datatables.net/1.12.1": {
+        "dependencies": {
+          "jQuery": "1.7.0"
+        }
+      },
+      "datatables.net-dt/1.13.6": {
+        "dependencies": {
+          "datatables.net": "1.12.1"
+        }
+      },
       "FontAwesome/4.7.0": {},
       "Humanizer.Core/2.14.1": {
         "runtime": {
@@ -29,6 +40,7 @@
           }
         }
       },
+      "jQuery/1.7.0": {},
       "Microsoft.EntityFrameworkCore/7.0.11": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Abstractions": "7.0.11",
@@ -283,6 +295,20 @@
       "path": "bootstrap/5.3.2",
       "hashPath": "bootstrap.5.3.2.nupkg.sha512"
     },
+    "datatables.net/1.12.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-7ArWbq7HCVj6uciLXUoFlW1ZvfYNbCPxFnniAjD4NKb/iAsTYWGZYRjdH3Ir8+0N8rR6muPTF5nZ4Mqf1nUn9A==",
+      "path": "datatables.net/1.12.1",
+      "hashPath": "datatables.net.1.12.1.nupkg.sha512"
+    },
+    "datatables.net-dt/1.13.6": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+glC0WRIuiTq3tCGT4guGvWIR+QpeoMlDS0yGXcl8n7MHxb3PvoYa9c8RfVh0HRaKHfakwQTxI3EWtn5KD9Qiw==",
+      "path": "datatables.net-dt/1.13.6",
+      "hashPath": "datatables.net-dt.1.13.6.nupkg.sha512"
+    },
     "FontAwesome/4.7.0": {
       "type": "package",
       "serviceable": true,
@@ -296,6 +322,13 @@
       "sha512": "sha512-lQKvtaTDOXnoVJ20ibTuSIOf2i0uO0MPbDhd1jm238I+U/2ZnRENj0cktKZhtchBMtCUSRQ5v4xBCUbKNmyVMw==",
       "path": "humanizer.core/2.14.1",
       "hashPath": "humanizer.core.2.14.1.nupkg.sha512"
+    },
+    "jQuery/1.7.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-UEZuBreHZNLao3z9zNPeSadyoPwKDP/5kFh+Mn1Pm9ZS0czk7bv0O6RreloGSIMAfTLZCiigNkuPb2bXKtUM+g==",
+      "path": "jquery/1.7.0",
+      "hashPath": "jquery.1.7.0.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore/7.0.11": {
       "type": "package",

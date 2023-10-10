@@ -1,7 +1,11 @@
 using LimisInsight.Data;
 using Microsoft.EntityFrameworkCore;
+using static LimisInsight.Controllers.UsersController;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Register the ConnectionStrings class for DI
+builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("ConnectionStrings"));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
