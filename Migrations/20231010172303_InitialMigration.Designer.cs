@@ -46,7 +46,7 @@ namespace LimisInsight.Migrations
                     b.ToTable("organization_53257_teams_users_v2");
                 });
 
-            modelBuilder.Entity("TimeEntry", b =>
+            modelBuilder.Entity("TimeEntries", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()

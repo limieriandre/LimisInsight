@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LimisInsight.Migrations
 {
     [DbContext(typeof(LimisInsightContext))]
-    [Migration("20231010131607_FixUserModel")]
-    partial class FixUserModel
+    [Migration("20231011235207_UpdateCompositeKeyForTeamUsers")]
+    partial class UpdateCompositeKeyForTeamUsers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,46 +26,51 @@ namespace LimisInsight.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("id");
 
                     b.Property<DateTime>("DateAt")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime(6)")
+                        .HasColumnName("date_at");
 
                     b.Property<float>("Duration")
-                        .HasColumnType("float");
+                        .HasColumnType("float")
+                        .HasColumnName("duration");
 
                     b.Property<float>("DurationHour")
-                        .HasColumnType("float");
+                        .HasColumnType("float")
+                        .HasColumnName("duration_hour");
 
-                    b.Property<int>("MembersUserId")
-                        .HasColumnType("int");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("members_user_id");
 
-                    b.Property<string>("MembersUserName")
-                        .HasColumnType("longtext");
+                    b.Property<string>("UserName")
+                        .HasColumnType("longtext")
+                        .HasColumnName("members_user_name");
 
                     b.HasKey("Id");
 
-                    b.ToTable("TimeEntries");
+                    b.ToTable("organization_53257_time_entries_v2");
                 });
 
             modelBuilder.Entity("LimisInsight.Models.User", b =>
                 {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("userId")
                         .HasColumnType("int");
 
-                    b.Property<int>("TeamId")
+                    b.Property<int>("teamId")
                         .HasColumnType("int");
 
-                    b.Property<string>("TeamName")
+                    b.Property<string>("teamName")
                         .HasColumnType("longtext");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("userName")
                         .HasColumnType("longtext");
 
-                    b.HasKey("UserId");
+                    b.HasKey("userId", "teamId");
 
-                    b.ToTable("Users");
+                    b.ToTable("organization_53257_teams_users_v2");
                 });
 #pragma warning restore 612, 618
         }

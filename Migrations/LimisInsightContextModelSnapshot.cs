@@ -19,31 +19,7 @@ namespace LimisInsight.Migrations
                 .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("LimisInsight.Models.User", b =>
-                {
-                    b.Property<int>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("user_id");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int")
-                        .HasColumnName("team_id");
-
-                    b.Property<string>("TeamName")
-                        .HasColumnType("longtext")
-                        .HasColumnName("team_name");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("longtext")
-                        .HasColumnName("user_name");
-
-                    b.HasKey("UserId");
-
-                    b.ToTable("organization_53257_teams_users_v2");
-                });
-
-            modelBuilder.Entity("TimeEntry", b =>
+            modelBuilder.Entity("LimisInsight.Models.TimeEntries", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -54,12 +30,12 @@ namespace LimisInsight.Migrations
                         .HasColumnType("datetime(6)")
                         .HasColumnName("date_at");
 
-                    b.Property<int>("Duration")
-                        .HasColumnType("int")
+                    b.Property<float>("Duration")
+                        .HasColumnType("float")
                         .HasColumnName("duration");
 
-                    b.Property<decimal>("DurationHour")
-                        .HasColumnType("decimal(65,30)")
+                    b.Property<float>("DurationHour")
+                        .HasColumnType("float")
                         .HasColumnName("duration_hour");
 
                     b.Property<int>("UserId")
@@ -73,6 +49,25 @@ namespace LimisInsight.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("organization_53257_time_entries_v2");
+                });
+
+            modelBuilder.Entity("LimisInsight.Models.User", b =>
+                {
+                    b.Property<int>("userId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("teamId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("teamName")
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("userName")
+                        .HasColumnType("longtext");
+
+                    b.HasKey("userId", "teamId");
+
+                    b.ToTable("organization_53257_teams_users_v2");
                 });
 #pragma warning restore 612, 618
         }

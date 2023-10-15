@@ -30,6 +30,7 @@ namespace LimisInsight.Controllers
 
         public IActionResult Index()
         {
+
             // Renderiza a view sem dados.
             return View();
         }
@@ -50,17 +51,45 @@ namespace LimisInsight.Controllers
             public string ArtiaLocalConnection { get; set; }
         }
 
+        [HttpPost]
         public async Task<IActionResult> CloneData()
         {
-            var originUsers = _originContext.Users.ToList();
+            int recordsCloned = 0;
 
-            // Aqui você pode verificar se os dados precisam ser atualizados ou simplesmente adicionar todos. 
-            // Para simplicidade, estou adicionando todos os dados:
+            try
+            {
+                // Limpe a tabela local
+                _localContext.Database.ExecuteSqlRaw("DROP TABLE IF EXISTS organization_53257_teams_users_v2");
+                _localContext.Database.ExecuteSqlRaw("/* SQL para criar a tabela organization_53257_teams_users_v2 novamente, com a chave primária composta */");
 
-            _localContext.Users.AddRange(originUsers);
-            await _localContext.SaveChangesAsync();
+                var usersFromOrigin = _originContext.Users.ToList();
 
-            return Json(new { success = true });
+                // Adicione registros à base local
+                _localContext.Users.AddRange(usersFromOrigin);
+                await _localContext.SaveChangesAsync();
+
+                recordsCloned = usersFromOrigin.Count;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException?.Message);
+                Console.WriteLine(ex.Message); // Você pode ajustar isso para logar o erro como desejar
+                return Json(new { success = false });
+            }
+
+            return Json(new { success = true, records = recordsCloned });
         }
+
+        [HttpGet]
+        public IActionResult DisplayLocalData()
+        {
+            // Obtenha os dados do usuário do banco de dados local
+            var users = _localContext.Users.ToList();
+
+            // Retorna os dados como JSON.
+            return Json(users);
+        }
+
     }
 }

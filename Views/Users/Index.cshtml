@@ -18,7 +18,7 @@
             <button id="cloneDataBtn" class="btn btn-primary btn-lg w-100">Clonar Dados</button>
         </div>
         <div class="col-md-2 mb-3">
-            <a class="btn btn-primary btn-lg w-100" asp-controller="Users" asp-action="DisplayLocalData">Dados Locais</a>
+            <button id="loadLocalDataBtn" class="btn btn-primary btn-lg w-100">Dados Locais</button>
         </div>
     </div>
 
@@ -45,41 +45,57 @@
 
 @section Scripts {
     <script>
+        function updateTableWithData(data) {
+            if ($.fn.dataTable.isDataTable('#usersDataTable')) {
+                $('#usersDataTable').DataTable().destroy();
+            }
+            $('#usersDataTable tbody').empty();
+
+            $.each(data, function (i, user) {
+                var row = '<tr>'
+                    + '<td>' + user.userId + '</td>'
+                    + '<td>' + user.userName + '</td>'
+                    + '<td>' + user.teamId + '</td>'
+                    + '<td>' + user.teamName + '</td>'
+                    + '</tr>';
+                $('#usersDataTable tbody').append(row);
+            });
+            initializeDataTable();
+        }
+
+        function initializeDataTable() {
+            $('#usersDataTable').DataTable({
+                columns: [
+                    { data: 'userId' },
+                    { data: 'userName' },
+                    { data: 'teamId' },
+                    { data: 'teamName' }
+                ]
+            });
+            $("#usersTableDiv").show();
+        }
+
         $("#loadUsersBtn").click(function () {
+            $("#loadingDiv").show();
+
             $.ajax({
                 url: "@Url.Action("GetUsers", "Users")",
                 type: 'GET',
                 dataType: 'json',
                 success: function (data) {
-                    var tbody = $("#usersDataTable tbody");
-                    tbody.empty(); // Limpa o conteúdo atual
-
-                    $.each(data, function (i, user) {
-                        var row = '<tr>'
-                            + '<td>' + user.userId + '</td>'
-                            + '<td>' + user.userName + '</td>'
-                            + '<td>' + user.teamId + '</td>'
-                            + '<td>' + user.teamName + '</td>'
-                            + '</tr>';
-                        tbody.append(row);
-                    });
-
-                    // Mostra a tabela e, em seguida, inicializa o DataTable:
-                    $("#usersTableDiv").show();
-                    if (!$.fn.DataTable.isDataTable('#usersDataTable')) {
-                        $('#usersDataTable').DataTable();
-                    }
+                    updateTableWithData(data);
                 },
                 error: function (error) {
                     console.error("Erro ao buscar usuários:", error);
+                },
+                complete: function () {
+                    $("#loadingDiv").hide();
                 }
             });
         });
 
         $("#cloneDataBtn").click(function (event) {
-            event.preventDefault();  // isso impede a ação padrão do botão (se houver)
-
-            // Mostra animação de carregamento
+            event.preventDefault();
             $("#loadingDiv").show();
 
             $.ajax({
@@ -89,7 +105,7 @@
                 success: function (response) {
                     $("#loadingDiv").hide();
                     if (response.success) {
-                        alert("Dados clonados com sucesso!");
+                        alert(response.records + " dados clonados com sucesso!");
                     } else {
                         alert("Ocorreu um erro ao clonar os dados.");
                     }
@@ -97,6 +113,25 @@
                 error: function () {
                     $("#loadingDiv").hide();
                     alert("Erro ao clonar os dados.");
+                }
+            });
+        });
+
+        $("#loadLocalDataBtn").click(function () {
+            $("#loadingDiv").show();
+
+            $.ajax({
+                url: "@Url.Action("DisplayLocalData", "Users")",
+                type: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    updateTableWithData(data);
+                },
+                error: function (error) {
+                    console.error("Erro ao buscar dados locais:", error);
+                },
+                complete: function () {
+                    $("#loadingDiv").hide();
                 }
             });
         });

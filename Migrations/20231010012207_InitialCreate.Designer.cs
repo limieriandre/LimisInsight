@@ -6,7 +6,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-#nullable disable
 
 namespace LimisInsight.Migrations
 {
@@ -22,7 +21,7 @@ namespace LimisInsight.Migrations
                 .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("LimisInsight.Models.TimeEntry", b =>
+            modelBuilder.Entity("LimisInsight.Models.TimeEntries", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
