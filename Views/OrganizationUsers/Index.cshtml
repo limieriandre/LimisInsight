@@ -1,0 +1,137 @@
+﻿@model IEnumerable<LimisInsight.Models.OrganizationUser>
+
+<div class="container mt-5">
+        <div class="col-md-12 text-center">
+            <h1 class="display-4 mb-2">Organization Users</h1>
+            <br />
+        </div>
+    <div class="row justify-content-center">
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-2">
+                <button id="loadDataBtn" class="btn btn-primary btn-lg w-100 mb-2">Carregar Dados</button>
+            </div>
+            <div class="col-md-2">
+                <button id="copyDataBtn" class="btn btn-primary btn-lg w-100 mb-2" >Copiar Dados</button>
+            </div>
+            <div class="col-md-2">
+                <button id="localDataBtn" class="btn btn-primary btn-lg w-100 mb-2" >Dados Locais</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="loadingDiv" style="display:none;">
+                <i class="fas fa-cog fa-spin"></i> Carregando...
+            </div>
+        </div>
+    </div>
+
+    <div id="hiddenDiv" style="display:none">
+        <table id="dataTable" class="table" style="display:box;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>State</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+ </div>
+
+ @section scripts {
+     <script>
+            $(document).ready(function () {
+                let dataTableInstance; // Armazena a instância da DataTable
+
+                $('#loadDataBtn').click(function () {
+                    // Mostrar spinner de carregamento
+                    $('#loadingDiv').show();
+                    $('#hiddenDiv').show();
+
+                    // Obter dados via AJAX
+                    $.get("/OrganizationUsers/GetOrganizationUsers", function (data) {
+                        // Ocultar spinner de carregamento
+                        $('#loadingDiv').hide();
+
+                        // Verifica se a dataTable já existe, se sim, a destroi para criar novamente
+                        if (dataTableInstance) {
+                            dataTableInstance.destroy();
+                            $('#dataTable tbody').empty(); // Limpa o corpo da tabela
+                        }
+
+                        // Inicializar ou atualizar DataTable com os dados
+                        dataTableInstance = $('#dataTable').DataTable({
+                            responsive: true,
+                            data: data,
+                            columns: [
+                                { data: "id" },
+                                { data: "organizationUserState" },
+                                { data: "name" },
+                                { data: "email" },
+                                { data: "roleName" }
+                            ]
+                        });
+
+                        // Mostrar tabela
+                        $('#dataTable').show();
+                    });
+                });
+
+                $('#copyDataBtn').click(function () {
+                    // Mostrar spinner de carregamento
+                    $('#loadingDiv').show();
+
+                    // Fazer a chamada AJAX para a action de cópia usando POST
+                    $.post("/OrganizationUsers/CopyDataToLocalStorage", function (recordsCopied) {
+                        // Ocultar spinner de carregamento
+                        $('#loadingDiv').hide();
+
+                        // Informar ao usuário o número de registros copiados
+                        alert(recordsCopied + " registros copiados com sucesso!");
+                    });
+                });
+
+
+                $('#localDataBtn').click(function () {
+                    // Mostrar spinner de carregamento
+                    $('#loadingDiv').show();
+                    $('#hiddenDiv').show();
+
+                    // Obter dados locais via AJAX
+                    $.get("/OrganizationUsers/LoadLocalData", function (data) {
+                        // Ocultar spinner de carregamento
+                        $('#loadingDiv').hide();
+
+                        // Verifica se a dataTable já existe, se sim, a destroi para criar novamente
+                        if (dataTableInstance) {
+                            dataTableInstance.destroy();
+                            $('#dataTable tbody').empty(); // Limpa o corpo da tabela
+                        }
+
+                        // Inicializar ou atualizar DataTable com os dados
+                        dataTableInstance = $('#dataTable').DataTable({
+                            responsive: true,
+                            data: data,
+                            columns: [
+                                { data: "id" },
+                                { data: "organizationUserState" },
+                                { data: "name" },
+                                { data: "email" },
+                                { data: "roleName" }
+                            ]
+                        });
+
+                        // Mostrar tabela
+                        $('#dataTable').show();
+                    });
+                });
+            });
+
+    </script>
+ }
+
+

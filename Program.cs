@@ -1,19 +1,16 @@
-using LimisInsight.Data;
 using Microsoft.EntityFrameworkCore;
-using static LimisInsight.Controllers.UsersController;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Register the ConnectionStrings class for DI
-builder.Services.Configure<ConnectionStrings>(builder.Configuration.GetSection("ConnectionStrings"));
+builder.Services.AddDbContext<OrigemDbContext>(options => 
+    options.UseMySql(builder.Configuration.GetConnectionString("Origem"), new MySqlServerVersion(new Version(5, 7, 38))));
+
+builder.Services.AddDbContext<LocalDbContext>(options =>
+    options.UseMySql(builder.Configuration.GetConnectionString("Local"), new MySqlServerVersion(new Version(8, 0, 21))));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
-// Add services to the container.
-builder.Services.AddDbContext<LimisInsightContext>(options =>
-    options.UseMySql(builder.Configuration.GetConnectionString("ArtiaLocalConnection"),
-    new MySqlServerVersion(new System.Version(8, 0, 21))));
 
 var app = builder.Build();
 
@@ -22,6 +19,7 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
+    app.UseDeveloperExceptionPage();
 }
 
 app.UseHttpsRedirection();

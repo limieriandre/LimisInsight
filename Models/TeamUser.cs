@@ -2,8 +2,8 @@
 
 namespace LimisInsight.Models
 {
-    [Table("organization_53257_teams_users_v2")]
-    public class User
+    [Table("organization_53257_teams_users")]
+    public class TeamUser
     {
         [Column("user_id")]
         public int UserId { get; set; }
@@ -18,4 +18,3 @@ namespace LimisInsight.Models
         public string TeamName { get; set; }
     }
 }
-

@@ -1,11 +1,3 @@
-C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.csproj.AssemblyReference.cache
-C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.AssemblyInfoInputs.cache
-C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.AssemblyInfo.cs
-C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.csproj.CoreCompileInputs.cache
-C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.RazorAssemblyInfo.cache
-C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.RazorAssemblyInfo.cs
 C:\Users\andre\source\repos\LimisInsight\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\andre\source\repos\LimisInsight\bin\Debug\net6.0\appsettings.json
 C:\Users\andre\source\repos\LimisInsight\bin\Debug\net6.0\LimisInsight.staticwebassets.runtime.json
@@ -36,6 +28,14 @@ C:\Users\andre\source\repos\LimisInsight\bin\Debug\net6.0\System.CodeDom.dll
 C:\Users\andre\source\repos\LimisInsight\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 C:\Users\andre\source\repos\LimisInsight\bin\Debug\net6.0\System.Text.Json.dll
 C:\Users\andre\source\repos\LimisInsight\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
+C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.csproj.AssemblyReference.cache
+C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.AssemblyInfoInputs.cache
+C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.AssemblyInfo.cs
+C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.csproj.CoreCompileInputs.cache
+C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.RazorAssemblyInfo.cache
+C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\LimisInsight.RazorAssemblyInfo.cs
 C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\staticwebassets\msbuild.LimisInsight.Microsoft.AspNetCore.StaticWebAssets.props
 C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\staticwebassets\msbuild.build.LimisInsight.props
 C:\Users\andre\source\repos\LimisInsight\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.LimisInsight.props
