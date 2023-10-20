@@ -1,0 +1,27 @@
+﻿@model LimisInsight.Models.ParametrosConfig
+
+<div class="container mt-5">
+    <div class="col-md-12 text-center">
+        <h1 class="display-4 mb-2">Adicionar Parâmetro</h1>
+    </div>
+
+    <form method="post" action="/Parametros/AddParametro">
+        <div class="form-group">
+            <label for="ParametroNome">Nome do Parâmetro</label>
+            <input type="text" class="form-control" id="ParametroNome" name="ParametroNome" required>
+        </div>
+        <div class="form-group">
+            <label for="ParametroValor">Valor</label>
+            <input type="text" class="form-control" id="ParametroValor" name="ParametroValor" required>
+        </div>
+        <div class="form-group">
+            <label for="ParametroTipo">Tipo</label>
+            <input type="text" class="form-control" id="ParametroTipo" name="ParametroTipo" required>
+        </div>
+        <div class="form-group">
+            <label for="Descricao">Descrição</label>
+            <textarea class="form-control" id="Descricao" name="Descricao" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Salvar</button>
+    </form>
+</div>

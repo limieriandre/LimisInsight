@@ -19,5 +19,7 @@ namespace LimisInsight.Models
 
         [Column("role_name")]
         public string RoleName { get; set; }
+
+        public ICollection<DataJustificada> DatasJustificadas { get; set; }
     }
 }

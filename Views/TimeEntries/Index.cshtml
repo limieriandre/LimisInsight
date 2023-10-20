@@ -1,0 +1,178 @@
+﻿@model IEnumerable<LimisInsight.Models.TimeEntry>
+
+<div class="container mt-5">
+    <div class="col-md-12 text-center">
+        <h1 class="display-4 mb-2">Time Entries</h1>
+        <br />
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-6 mb-3">
+            <label for="startDate">Data Inicial:</label>
+            <input type="date" id="startDate" class="form-control">
+        </div>
+        <div class="col-md-6 mb-3">
+            <label for="endDate">Data Final:</label>
+            <input type="date" id="endDate" class="form-control">
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center">
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-2">
+                <button id="loadTimeDataBtn" class="btn btn-primary btn-lg w-100 mb-2">Carregar Dados</button>
+            </div>
+            <div class="col-md-2">
+                <button id="copyTimeDataBtn" class="btn btn-primary btn-lg w-100 mb-2">Copiar Dados</button>
+            </div>
+            <div class="col-md-2">
+                <button id="localTimeDataBtn" class="btn btn-primary btn-lg w-100 mb-2">Dados Locais</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="loadingDiv" style="display:none;">
+                <i class="fas fa-cog fa-spin"></i> Carregando...
+            </div>
+        </div>
+    </div>
+
+    <div id="hiddenDiv" style="display:none">
+        <table id="dataTable" class="table" style="display:box;">
+            <thead>
+                <tr>
+                    <th>Duration Hour</th>
+                    <th>User Name</th>
+                    <th>Activity ID</th>
+                    <th>Date At</th>
+                    <th>Activity Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            let dataTableInstance; // Armazena a instância da DataTable
+
+            $('#loadTimeDataBtn').click(function () {
+                // Mostrar spinner de carregamento
+                $('#loadingDiv').show();
+                $('#hiddenDiv').show();
+
+                let startDate = $('#startDate').val();
+                let endDate = $('#endDate').val();
+
+                // Obter dados via AJAX
+                $.get("/TimeEntries/GetTimeEntries", { startDate: startDate, endDate: endDate }, function (data) {
+                    // Ocultar spinner de carregamento
+                    $('#loadingDiv').hide();
+
+                    // Verifica se a dataTable já existe, se sim, a destroi para criar novamente
+                    if (dataTableInstance) {
+                        dataTableInstance.destroy();
+                        $('#dataTable tbody').empty(); // Limpa o corpo da tabela
+                    }
+
+                    // Inicializar ou atualizar DataTable com os dados
+                    dataTableInstance = $('#dataTable').DataTable({
+                        responsive: true,
+                        data: data,
+                        columns: [
+                            { data: "durationHour" },
+                            { data: "membersUserName" },
+                            { data: "activityId" },
+                            {
+                                data: "dateAt",
+                                render: function (data, type) {
+                                    if (type === 'display' || type === 'filter') {
+                                        return moment(data).format('DD/MM/YYYY');
+                                    }
+                                    return data;
+                                }
+                            },
+                            { data: "activityStatusName" }
+                        ]
+                    });
+
+                    // Mostrar tabela
+                    $('#dataTable').show();
+                });
+            });
+
+            $('#copyTimeDataBtn').click(function () {
+                // Mostrar spinner de carregamento
+                $('#loadingDiv').show();
+
+                let startDate = $('#startDate').val();
+                let endDate = $('#endDate').val();
+
+                // Fazer a chamada AJAX para a action de cópia usando POST
+                $.post("/TimeEntries/CopyDataToLocalStorage", { startDate: startDate, endDate: endDate }, function (recordsCopied) {
+                    // Ocultar spinner de carregamento
+                    $('#loadingDiv').hide();
+
+                    // Informar ao usuário o número de registros copiados
+                    alert(recordsCopied + " registros copiados com sucesso!");
+                });
+            });
+
+            $('#localTimeDataBtn').click(function () {
+                // Mostrar spinner de carregamento
+                $('#loadingDiv').show();
+                $('#hiddenDiv').show();
+
+                let startDate = $('#startDate').val();
+                let endDate = $('#endDate').val();
+
+                // Obter dados locais via AJAX
+                $.get("/TimeEntries/LoadLocalData", { startDate: startDate, endDate: endDate }, function (data) {
+                    // Ocultar spinner de carregamento
+                    $('#loadingDiv').hide();
+
+                    // Verifica se a dataTable já existe, se sim, a destroi para criar novamente
+                    if (dataTableInstance) {
+                        dataTableInstance.destroy();
+                        $('#dataTable tbody').empty(); // Limpa o corpo da tabela
+                    }
+
+                    // Função para formatar as datas
+                    function formatDateColumn(data, type) {
+                        if (type === 'display' || type === 'filter') {
+                            return moment(data).format('DD/MM/YYYY HH:mm:ss');
+                        }
+                        return data;
+                    }
+
+                    // Inicializar ou atualizar DataTable com os dados
+                    dataTableInstance = $('#dataTable').DataTable({
+                        responsive: true,
+                        data: data,
+                        columns: [
+                            { data: "durationHour" },
+                            { data: "membersUserName" },
+                            { data: "activityId" },
+                            {
+                                data: "dateAt",
+                                render: function (data, type) {
+                                    if (type === 'display' || type === 'filter') {
+                                        return moment(data).format('DD/MM/YYYY');
+                                    }
+                                    return data;
+                                }
+                            },
+                            { data: "activityStatusName" }
+                        ]
+                    });
+
+                    // Mostrar tabela
+                    $('#dataTable').show();
+                });
+            });
+
+        });
+    </script>
+}

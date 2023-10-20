@@ -9,14 +9,35 @@ public class LocalDbContext : DbContext
     public DbSet<OrganizationUser> OrganizationUsers { get; set; }
     public DbSet<TeamUser> TeamUsers { get; set; }
 
+    public DbSet<ListaApontamento> ListaApontamentos { get; set; }
+
+    public DbSet<ParametrosConfig> ParametrosConfigs { get; set; }
+
+    public DbSet<DataJustificada> DatasJustificadas { get; set; }
+
+
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder); // Se você já tem outras configurações, mantenha-as.
+
+        modelBuilder.Entity<ListaApontamento>()
+                .HasKey(la => new { la.IdUser, la.Data });
+
+        modelBuilder.Entity<ListaApontamento>()
+        .Property(la => la.Data)
+        .HasColumnType("date");
+
+        modelBuilder.Entity<TimeEntry>()
+        .Property(te => te.DateAt)
+        .HasColumnType("date");
 
         modelBuilder.Entity<TeamUser>()
             .HasKey(t => new { t.UserId, t.TeamId });
 
         // outras configurações...
     }
+    public DbSet<TimeEntry> TimeEntries { get; set; }
+
 
 }

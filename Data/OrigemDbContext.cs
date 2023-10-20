@@ -19,5 +19,18 @@ public class OrigemDbContext : DbContext
 
         // outras configurações...
     }
+    public DbSet<TimeEntry> TimeEntries { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        var serverVersion = new MySqlServerVersion(new Version(5, 7, 38)); // Substitua pelo número de versão correto do seu MySQL
+
+        optionsBuilder.UseMySql("server=st.db.artia.com;port=3306;database=artia;user=cliente-53257;password=GuVSqVLVftozCU/9yO1zX6souYE=",
+            serverVersion,
+            options => options.CommandTimeout(300)); // Define o timeout para 120 segundos
+    }
+
+
+
 
 }

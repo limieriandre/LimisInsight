@@ -1,0 +1,119 @@
+﻿@model IEnumerable<LimisInsight.Models.ListaApontamento>
+
+<div class="container mt-5">
+    <!-- ... Outras partes do HTML ... -->
+
+    <div class="row justify-content-center">
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-2">
+                <button id="geraApontamentoDataBtn" class="btn btn-primary btn-lg w-100 mb-2">Gerar Dados</button>
+            </div>
+            <div class="col-md-2">
+                <button id="localApontamentoDataBtn" class="btn btn-primary btn-lg w-100 mb-2">Dados Locais</button>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="loadingDivApontamento" style="display:none;">
+                <i class="fas fa-cog fa-spin"></i> Carregando...
+            </div>
+        </div>
+
+        <div id="hiddenDivApontamento" style="display:none">
+            <table id="dataTableApontamento" class="table" style="display:box;">
+                <thead>
+                    <tr>
+                        <th>ID User</th>
+                        <th>Nome</th>
+                        <th>Data</th>
+                        <th>Time</th>
+                        <th>Soma</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @section scripts {
+        <script>
+            // ... (Seu código anterior para TeamUsers) ...
+
+            // Código para manipular ListaApontamento
+            $(document).ready(function () {
+                let dataTableApontamentoInstance;
+
+                $('#localApontamentoDataBtn').click(function () {
+                    // Mostrar spinner de carregamento
+                    $('#loadingDivApontamento').show();
+                    $('#hiddenDivApontamento').show();
+
+                    // Obter dados locais via AJAX para ListaApontamento
+                    $.get("/ListaApontamento/LoadLocalData", function (data) {
+                        // Ocultar spinner de carregamento
+                        $('#loadingDivApontamento').hide();
+
+                        // Verifica se a dataTableApontamento já existe, se sim, a destroi para criar novamente
+                        if (dataTableApontamentoInstance) {
+                            dataTableApontamentoInstance.destroy();
+                            $('#dataTableApontamento tbody').empty(); // Limpa o corpo da tabela
+                        }
+
+                        // Inicializar ou atualizar DataTable com os dados
+                        dataTableApontamentoInstance = $('#dataTableApontamento').DataTable({
+                            responsive: true,
+                            data: data,
+                            columns: [
+                                { data: "ID_USER" },
+                                { data: "NOME" },
+                                { data: "DATA" },
+                                { data: "TIME" },
+                                { data: "SOMA" },
+                                { data: "STATUS" }
+                            ]
+                        });
+
+                        // Mostrar tabela
+                        $('#dataTableApontamento').show();
+                    });
+
+
+                });
+                $('#geraApontamentoDataBtn').click(function () {
+                    // Mostrar spinner de carregamento
+                    $('#loadingDivApontamento').show();
+                    $('#hiddenDivApontamento').show();
+
+                    // Faz a chamada para o método GeraApontamentos
+                    $.get("/ListaApontamento/GeraApontamentos", function (data) {
+                        // Ocultar spinner de carregamento
+                        $('#loadingDivApontamento').hide();
+
+                        // Verifica se a dataTableApontamento já existe, se sim, a destroi para criar novamente
+                        if (dataTableApontamentoInstance) {
+                            dataTableApontamentoInstance.destroy();
+                            $('#dataTableApontamento tbody').empty();
+                        }
+
+                        // Inicializar ou atualizar DataTable com os dados
+                        dataTableApontamentoInstance = $('#dataTableApontamento').DataTable({
+                            responsive: true,
+                            data: data,
+                            columns: [
+                                { data: "userId" },
+                                { data: "userName" },
+                                { data: "dateAt" },
+                                { data: "time" },
+                                { data: "soma" },
+                                { data: "status" }
+                            ]
+                        });
+
+                        // Mostrar tabela
+                        $('#dataTableApontamento').show();
+                    });
+                });
+            });
+        </script>
+    }

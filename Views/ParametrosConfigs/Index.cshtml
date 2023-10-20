@@ -1,0 +1,105 @@
+﻿@model IEnumerable<LimisInsight.Models.ParametrosConfig>
+
+<div class="container mt-5">
+    <div class="col-md-12 text-center">
+        <h1 class="display-4 mb-2">Parâmetros</h1>
+        <br />
+    </div>
+    <div class="row justify-content-center">
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-2">
+                <button id="listaParametros" class="btn btn-primary btn-lg w-100 mb-2">Carregar Parâmetros</button>
+            </div>
+            <div class="col-md-2">
+                <button id="GravaParametros" class="btn btn-primary btn-lg w-100 mb-2">Gravar Parâmetros</button>
+            </div>
+            <div class="col-md-2">
+                <a href="@Url.Action("AddParametro", "ParametrosConfigs")" class="btn btn-primary btn-lg w-100 mb-2">Adicionar Parâmetros</a>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div id="loadingDiv" style="display:none;">
+                <i class="fas fa-cog fa-spin"></i> Carregando...
+            </div>
+        </div>
+    </div>
+
+    <div id="hiddenDiv" style="display:none">
+        <table id="dataTable" class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Nome do Parâmetro</th>
+                    <th>Valor</th>
+                    <th>Tipo</th>
+                    <th>Descrição</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            let dataTableInstance; // Armazena a instância da DataTable
+
+            $('#listaParametros').click(function () {
+                // Mostrar spinner de carregamento
+                $('#loadingDiv').show();
+                $('#hiddenDiv').show();
+
+                // Obter dados via AJAX
+                $.get("/Parametros/GetParametrosData", function (data) {
+                    // Ocultar spinner de carregamento
+                    $('#loadingDiv').hide();
+
+                    // Verifica se a dataTable já existe, se sim, a destrói para criar novamente
+                    if (dataTableInstance) {
+                        dataTableInstance.destroy();
+                        $('#dataTable tbody').empty(); // Limpa o corpo da tabela
+                    }
+
+                    // Inicializar ou atualizar DataTable com os dados
+                    dataTableInstance = $('#dataTable').DataTable({
+                        responsive: true,
+                        data: data,
+                        columns: [
+                            { data: "parametroNome" },
+                            {
+                                data: "parametroValor",
+                                render: function (data, type, row) {
+                                    return `<input type="text" data-id="${row.id}" class="param-valor" value="${data}" />`;
+                                }
+                            },
+                            { data: "parametroTipo" },
+                            { data: "descricao" }
+                        ]
+                    });
+
+                    // Mostrar tabela
+                    $('#dataTable').show();
+                });
+            });
+
+            $('#GravaParametros').click(function () {
+                // Coletar dados modificados da tabela
+                const parametros = [];
+                $('.param-valor').each(function () {
+                    parametros.push({
+                        id: $(this).data('id'),
+                        valor: $(this).val()
+                    });
+                });
+
+                // Fazer a chamada AJAX para a action de atualização usando POST
+                $.post("/Parametros/UpdateParametros", { parametros }, function (response) {
+                    alert(response.message);
+                });
+            });
+
+        });
+    </script>
+}
+
