@@ -1,0 +1,20 @@
+﻿@model LimisInsight.Models.DataFeriado
+
+<div class="container mt-5">
+    <div class="col-md-12 text-center">
+        <h1 class="display-4 mb-2">Adicionar Data Feriado</h1>
+    </div>
+    <div class="row justify-content-center">
+        <form asp-action="Save" asp-controller="DataFeriado" method="post">
+            <div class="form-group">
+                <label>Data:</label>
+                <input class="form-control" type="date" asp-for="Data" />
+            </div>
+            <div class="form-group">
+                <label>Justificativa:</label>
+                <textarea class="form-control" asp-for="Justificativa"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Adicionar</button>
+        </form>
+    </div>
+</div>

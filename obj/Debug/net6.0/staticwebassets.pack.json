@@ -197,6 +197,7 @@
       "PackagePath": "staticwebassets\\LimisInsight.bundle.scp.css"
     },
     {
+<<<<<<< HEAD
       "Id": "C:\\Users\\Andre Limieri\\Source\\Repos\\LimisInsight\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -206,6 +207,45 @@
     },
     {
       "Id": "C:\\Users\\Andre Limieri\\Source\\Repos\\LimisInsight\\wwwroot\\js\\site.js",
+=======
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\brightness.png",
+      "PackagePath": "staticwebassets\\brightness.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\css\\site.css",
+      "PackagePath": "staticwebassets\\css\\site.css"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\favico.png",
+      "PackagePath": "staticwebassets\\favico.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\favicon.ico",
+      "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\ico.png",
+      "PackagePath": "staticwebassets\\ico.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\ico\\brightness.png",
+      "PackagePath": "staticwebassets\\ico\\brightness.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\ico\\favico.png",
+      "PackagePath": "staticwebassets\\ico\\favico.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\icone.png",
+      "PackagePath": "staticwebassets\\icone.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\iconebranco.png",
+      "PackagePath": "staticwebassets\\iconebranco.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\js\\site.js",
+>>>>>>> 02df278a08b9628f12db59214a275af1652cb512
       "PackagePath": "staticwebassets\\js\\site.js"
     },
     {
@@ -389,7 +429,15 @@
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
     },
     {
+<<<<<<< HEAD
       "Id": "C:\\Users\\Andre Limieri\\Source\\Repos\\LimisInsight\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+=======
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\lib\\brightness.png",
+      "PackagePath": "staticwebassets\\lib\\brightness.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
+>>>>>>> 02df278a08b9628f12db59214a275af1652cb512
       "PackagePath": "staticwebassets\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
     },
     {

@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<LimisInsight.Models.ListaApontamento>
 
 <div class="container mt-5">
-    <!-- ... Outras partes do HTML ... -->
+    <div class="col-md-12 text-center">
+        <h1 class="display-4 mb-2">Lista de Apontamentos</h1>
+        <br />
+    </div>
 
     <div class="row justify-content-center">
         <div class="row justify-content-center mb-3">
@@ -9,7 +12,13 @@
                 <button id="geraApontamentoDataBtn" class="btn btn-primary btn-lg w-100 mb-2">Gerar Dados</button>
             </div>
             <div class="col-md-2">
+                <button id="gravaApontamentoDataBtn" class="btn btn-primary btn-lg w-100 mb-2">Gravar Dados</button>
+            </div>
+            <div class="col-md-2">
                 <button id="localApontamentoDataBtn" class="btn btn-primary btn-lg w-100 mb-2">Dados Locais</button>
+            </div>
+            <div class="col-md-2">
+                <button id="gerarLista" class="btn btn-primary btn-lg w-100 mb-2">Gerar Lista INC</button>
             </div>
         </div>
         <div class="row justify-content-center">
@@ -34,11 +43,24 @@
                 </tbody>
             </table>
         </div>
+
+        <table id="incTable" class="table" style="display:none;">
+            <thead>
+                <tr>
+                    <th>User Name</th>
+                    <th>Team Name</th>
+                    <th>Datas</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+
     </div>
 
     @section scripts {
         <script>
-            // ... (Seu código anterior para TeamUsers) ...
 
             // Código para manipular ListaApontamento
             $(document).ready(function () {
@@ -65,12 +87,19 @@
                             responsive: true,
                             data: data,
                             columns: [
-                                { data: "ID_USER" },
-                                { data: "NOME" },
-                                { data: "DATA" },
-                                { data: "TIME" },
-                                { data: "SOMA" },
-                                { data: "STATUS" }
+                                { data: "idUser" },
+                                { data: "nome" },
+                                { data: "data",
+                                render: function (data, type) {
+                                    if (type === 'display' || type === 'filter') {
+                                        return moment(data).format('DD/MM/YYYY');
+                                    }
+                                    return data;
+                                }
+                                        },
+                                { data: "time" },
+                                { data: "soma" },
+                                { data: "status" }
                             ]
                         });
 
@@ -80,6 +109,7 @@
 
 
                 });
+
                 $('#geraApontamentoDataBtn').click(function () {
                     // Mostrar spinner de carregamento
                     $('#loadingDivApontamento').show();
@@ -103,7 +133,15 @@
                             columns: [
                                 { data: "userId" },
                                 { data: "userName" },
-                                { data: "dateAt" },
+                                {
+                                    data: "dateAt",
+                                    render: function (data, type) {
+                                        if (type === 'display' || type === 'filter') {
+                                            return moment(data).format('DD/MM/YYYY');
+                                        }
+                                        return data;
+                                    }
+                                },
                                 { data: "time" },
                                 { data: "soma" },
                                 { data: "status" }
@@ -114,6 +152,105 @@
                         $('#dataTableApontamento').show();
                     });
                 });
+
+                $('#gravaApontamentoDataBtn').click(function () {
+
+                    if (!dataTableApontamentoInstance || typeof dataTableApontamentoInstance.rows !== "function") {
+                        alert("Por favor, gere ou carregue os dados antes de tentar gravar.");
+                        return;
+                    }
+                    // Capturar todos os dados da DataTable.
+                    var dadosDaTabela = dataTableApontamentoInstance.rows().data().toArray();
+
+                    var mapeadoParaSalvar = dadosDaTabela.map(item => {
+                        return {
+                            IdUser: item.userId,
+                            Nome: item.userName,
+                            Data: item.dateAt,
+                            Time: item.time,
+                            Soma: item.soma,
+                            Status: item.status
+                        };
+                    });
+
+                    if (!mapeadoParaSalvar.length) {
+                        alert("Gere os dados antes de tentar gravá-los.");
+                        return;
+                    }
+
+                    console.log(dadosDaTabela);
+
+                    // Envie a solicitação AJAX para o servidor com os dados estruturados.
+                    $.ajax({
+                        type: "POST",
+                        url: "/ListaApontamento/GravaApontamentos",
+                        contentType: "application/json",
+                        data: JSON.stringify(mapeadoParaSalvar),
+                        success: function (response) {
+                            alert(response);
+                        },
+                        error: function (error) {
+                            alert(error.responseText);
+                        }
+                    });
+                });
+
+                $('#gerarLista').click(function () {
+
+                    
+                    // Primeiro, garanta que a tabela foi carregada corretamente
+                    if (!dataTableApontamentoInstance || typeof dataTableApontamentoInstance.rows !== "function") {
+                        alert("Por favor, carregue os dados antes de tentar gerar a lista INC.");
+                        return;
+                    }
+                    $('#dataTableApontamento').hide();
+                    $('#hiddenDivApontamento').hide();
+                    
+
+                    var todosApontamentos = dataTableApontamentoInstance.rows().data().toArray();
+                    console.log(todosApontamentos);
+
+
+
+                    var listaInc = todosApontamentos.filter(apontamento => apontamento.status.trim() === "INC");
+                    console.log(listaInc);
+
+                    var groupedData = {};
+
+                    listaInc.forEach(item => {
+                        var key = item.userName + '-' + item.time;
+                        if (!groupedData[key]) {
+                            groupedData[key] = {
+                                userName: item.userName,
+                                teamName: item.time,
+                                datas: []
+                            };
+                        }
+                        groupedData[key].datas.push(moment(item.dateAt).format('DD/MM'));
+                    });
+
+                    var dataArray = Object.values(groupedData);
+
+                    $('#incTable').DataTable({
+                        destroy: true, // this ensures the table is destroyed and re-initialized
+                        data: dataArray,
+                        dom: 'Bfrtip', // Define a estrutura do DataTable: B = botões, f = filtro, r = processamento, t = tabela, i = informação, p = paginação
+                        buttons: [
+                            'copy', 'csv', 'excel'
+                        ],
+                        columns: [
+                            { data: "userName" },
+                            { data: "teamName" },
+                            { data: "datas", render: array => array.join(', ') }
+                        ]
+                    });
+                    $('#incTable').DataTable().columns.adjust().draw();
+                    $('#incTable').show();
+                    
+
+                });
+
+
             });
         </script>
     }

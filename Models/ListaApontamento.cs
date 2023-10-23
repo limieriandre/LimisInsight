@@ -7,6 +7,10 @@ namespace LimisInsight.Models
     [Table("lista_apontamentos")]
     public class ListaApontamento
     {
+        [Key]
+        [Column("Id")]
+        public int Id { get; set; }
+
         [Column("ID_USER")]
         public int IdUser { get; set; }
 

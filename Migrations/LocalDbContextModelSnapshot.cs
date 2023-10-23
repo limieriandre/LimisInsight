@@ -18,6 +18,28 @@ namespace LimisInsight.Migrations
                 .HasAnnotation("ProductVersion", "7.0.11")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
+            modelBuilder.Entity("LimisInsight.Models.DataFeriado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("id");
+
+                    b.Property<DateTime>("Data")
+                        .HasColumnType("Date")
+                        .HasColumnName("data");
+
+                    b.Property<string>("Justificativa")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("varchar(500)")
+                        .HasColumnName("justificativa");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("data_feriado");
+                });
+
             modelBuilder.Entity("LimisInsight.Models.DataJustificada", b =>
                 {
                     b.Property<int>("Id")
@@ -48,13 +70,18 @@ namespace LimisInsight.Migrations
 
             modelBuilder.Entity("LimisInsight.Models.ListaApontamento", b =>
                 {
-                    b.Property<int>("IdUser")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasColumnName("ID_USER");
+                        .HasColumnName("Id");
 
                     b.Property<DateTime>("Data")
                         .HasColumnType("date")
                         .HasColumnName("DATA");
+
+                    b.Property<int>("IdUser")
+                        .HasColumnType("int")
+                        .HasColumnName("ID_USER");
 
                     b.Property<string>("Nome")
                         .HasColumnType("longtext")
@@ -72,7 +99,7 @@ namespace LimisInsight.Migrations
                         .HasColumnType("longtext")
                         .HasColumnName("TIME");
 
-                    b.HasKey("IdUser", "Data");
+                    b.HasKey("Id");
 
                     b.ToTable("lista_apontamentos");
                 });
@@ -208,12 +235,17 @@ namespace LimisInsight.Migrations
             modelBuilder.Entity("LimisInsight.Models.DataJustificada", b =>
                 {
                     b.HasOne("LimisInsight.Models.OrganizationUser", "OrganizationUser")
-                        .WithMany()
+                        .WithMany("DatasJustificadas")
                         .HasForeignKey("MembersUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("OrganizationUser");
+                });
+
+            modelBuilder.Entity("LimisInsight.Models.OrganizationUser", b =>
+                {
+                    b.Navigation("DatasJustificadas");
                 });
 #pragma warning restore 612, 618
         }

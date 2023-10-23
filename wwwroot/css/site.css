@@ -59,3 +59,7 @@ h1, h2 {
     pointer-events: none;
     opacity: 0.6;
 }
+
+#incTable {
+    width: 100% !important;
+}

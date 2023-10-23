@@ -1,0 +1,88 @@
+﻿@model IEnumerable<LimisInsight.Models.DataFeriado>
+
+<div class="container mt-5">
+    <div class="col-md-12 text-center">
+        <h1 class="display-4 mb-2">Datas Feriados</h1>
+        <br />
+    </div>
+    <div class="row justify-content-center">
+        <div class="row justify-content-center mb-3">
+            <div class="col-md-2">
+                <button id="loadDataBtn" class="btn btn-primary btn-lg w-100 mb-2">Carregar Dados</button>
+            </div>
+            <div class="col-md-2">
+                <a href="@Url.Action("Add", "DataFeriado")" class="btn btn-primary btn-lg w-100 mb-2">Adicionar</a>
+            </div>
+
+        </div>
+        <div class="row justify-content-center">
+            <div id="loadingDiv" style="display:none;">
+                <i class="fas fa-cog fa-spin"></i> Carregando...
+            </div>
+        </div>
+    </div>
+
+    <div id="hiddenDiv" style="display:none">
+        <table id="dataTable" class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Data</th>
+                    <th>Justificativa</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            let dataTableInstance; // Armazena a instância da DataTable
+
+            $('#loadDataBtn').click(function () {
+                // Mostrar spinner de carregamento
+                $('#loadingDiv').show();
+                $('#hiddenDiv').show();
+
+                // Obter dados via AJAX
+                $.get("/DataFeriado/LoadLocalFeriados", function (data) {
+                    // Ocultar spinner de carregamento
+                    $('#loadingDiv').hide();
+
+                    // Verifica se a dataTable já existe, se sim, a destroi para criar novamente
+                    if (dataTableInstance) {
+                        dataTableInstance.destroy();
+                        $('#dataTable tbody').empty(); // Limpa o corpo da tabela
+                    }
+
+                    // Inicializar ou atualizar DataTable com os dados
+                    dataTableInstance = $('#dataTable').DataTable({
+                        responsive: true,
+                        data: data,
+                        columns: [
+                            { data: "id" },
+                            {
+                                data: "data",
+                                render: function (data, type) {
+                                    if (type === 'display' || type === 'filter') {
+                                        return moment(data).format('DD/MM/YYYY');
+                                    }
+                                    return data;
+                                }
+                            },
+                            { data: "justificativa" }
+                        ]
+                    });
+
+                    // Mostrar tabela
+                    $('#dataTable').show();
+                });
+            });
+        });
+
+    </script>
+}
