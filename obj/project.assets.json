@@ -11731,19 +11731,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\andre\\.nuget\\packages\\": {}
+    "C:\\Users\\Andre Limieri\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\andre\\source\\repos\\LimisInsight\\LimisInsight.csproj",
+      "projectUniqueName": "C:\\Users\\Andre Limieri\\Source\\Repos\\LimisInsight\\LimisInsight.csproj",
       "projectName": "LimisInsight",
-      "projectPath": "C:\\Users\\andre\\source\\repos\\LimisInsight\\LimisInsight.csproj",
-      "packagesPath": "C:\\Users\\andre\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\andre\\source\\repos\\LimisInsight\\obj\\",
+      "projectPath": "C:\\Users\\Andre Limieri\\Source\\Repos\\LimisInsight\\LimisInsight.csproj",
+      "packagesPath": "C:\\Users\\Andre Limieri\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Andre Limieri\\Source\\Repos\\LimisInsight\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\andre\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Andre Limieri\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
