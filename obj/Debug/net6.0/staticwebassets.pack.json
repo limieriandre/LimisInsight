@@ -197,12 +197,40 @@
       "PackagePath": "staticwebassets\\LimisInsight.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\brightness.png",
+      "PackagePath": "staticwebassets\\brightness.png"
+    },
+    {
       "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\favico.png",
+      "PackagePath": "staticwebassets\\favico.png"
+    },
+    {
       "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\ico.png",
+      "PackagePath": "staticwebassets\\ico.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\ico\\brightness.png",
+      "PackagePath": "staticwebassets\\ico\\brightness.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\ico\\favico.png",
+      "PackagePath": "staticwebassets\\ico\\favico.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\icone.png",
+      "PackagePath": "staticwebassets\\icone.png"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\iconebranco.png",
+      "PackagePath": "staticwebassets\\iconebranco.png"
     },
     {
       "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\js\\site.js",
@@ -387,6 +415,10 @@
     {
       "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map",
       "PackagePath": "staticwebassets\\lib\\bootstrap\\dist\\js\\bootstrap.min.js.map"
+    },
+    {
+      "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\lib\\brightness.png",
+      "PackagePath": "staticwebassets\\lib\\brightness.png"
     },
     {
       "Id": "C:\\Users\\andre\\source\\repos\\LimisInsight\\wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt",
